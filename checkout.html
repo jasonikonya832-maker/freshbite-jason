@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - FreshBite Cookies & Fruits</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo"><img src="logo.svg" alt="FreshBite" style="height: 50px; width: auto;"></a>
+      <button class="menu-toggle">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="how-to-order.html">How to Order</a></li>
+        <li class="cart-icon" onclick="window.location.href='cart.html'">
+          🛒
+          <span class="cart-count" style="display: none;">0</span>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- PAGE TITLE -->
+  <section style="background-color: #F5F5F5; padding: 2rem 0; border-bottom: 2px solid var(--border-color);">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 2rem;">
+      <h1 style="color: var(--primary-brown); margin: 0;">Checkout</h1>
+    </div>
+  </section>
+
+  <!-- CHECKOUT CONTAINER -->
+  <div class="checkout-container">
+    <form id="checkoutForm">
+      <!-- SHIPPING INFORMATION -->
+      <div class="checkout-section">
+        <h3>
+          <span class="section-number">1</span>
+          Shipping Information
+        </h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" placeholder="e.g., +254712345678" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Street Address *</label>
+          <input type="text" id="address" placeholder="e.g., Westlands, Nairobi" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City *</label>
+            <input type="text" id="city" placeholder="Nairobi" required>
+          </div>
+          <div class="form-group">
+            <label for="postalCode">Postal Code *</label>
+            <input type="text" id="postalCode" placeholder="e.g., 00100" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELIVERY ZONE SELECTION -->
+      <div class="checkout-section">
+        <h3>
+          <span class="section-number">2</span>
+          Delivery Options
+        </h3>
+        
+        <!-- DELIVERY TYPE SELECTION -->
+        <div class="delivery-type-selection">
+          <h4>Choose Delivery Type</h4>
+          <div class="delivery-type-options">
+            <label class="delivery-type-option">
+              <input type="radio" name="deliveryType" value="today" checked>
+              <div class="option-content">
+                <span class="option-title">🚚 Today Delivery</span>
+                <span class="option-desc">Same-day delivery (available until 6 PM)</span>
+              </div>
+            </label>
+            <label class="delivery-type-option">
+              <input type="radio" name="deliveryType" value="scheduled">
+              <div class="option-content">
+                <span class="option-title">📅 Pre-Order</span>
+                <span class="option-desc">Schedule for future date (perfect for events)</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- DELIVERY DATE PICKER (hidden by default) -->
+        <div id="deliveryDateSection" class="delivery-date-section" style="display: none;">
+          <h4>Select Delivery Date</h4>
+          <div class="form-group">
+            <label for="deliveryDate">Choose your preferred delivery date *</label>
+            <input type="date" id="deliveryDate" min="" required>
+            <small class="form-help">Pre-orders must be placed at least 24 hours in advance</small>
+          </div>
+        </div>
+        
+        <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem;">
+          Select your delivery zone to see the fee and estimated delivery time:
+        </p>
+
+        <div class="delivery-zones">
+          <div id="deliveryZonesList"></div>
+        </div>
+
+        <div id="deliveryInfo" style="display: none; background-color: var(--light-bg); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+          <p><strong>Selected Zone:</strong> <span id="selectedZone">-</span></p>
+          <p><strong>Delivery Fee:</strong> <span id="deliveryFeeDisplay">-</span></p>
+          <p><strong>Estimated Delivery:</strong> <span id="estimatedTimeDisplay">-</span></p>
+          <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 0.5rem;">
+            ✓ Free delivery for orders over KES 2,000
+          </p>
+        </div>
+      </div>
+
+      <!-- PAYMENT METHOD -->
+      <div class="checkout-section">
+        <h3>
+          <span class="section-number">3</span>
+          Payment Method
+        </h3>
+        
+        <div class="form-group">
+          <label for="paymentMethod">Select Payment Method *</label>
+          <select id="paymentMethod" required>
+            <option value="">-- Select Payment Method --</option>
+            <option value="mpesa">M-Pesa</option>
+            <option value="airtelMoney">Airtel Money</option>
+            <option value="creditCard">Credit/Debit Card</option>
+            <option value="bankTransfer">Bank Transfer</option>
+            <option value="cod">💵 Cash on Delivery (Pay when order arrives)</option>
+          </select>
+        </div>
+        
+        <p style="color: var(--text-light); font-size: 0.95rem;">
+          We accept M-Pesa, Airtel Money, Credit/Debit Cards, Bank Transfer, and Cash on Delivery. 
+          You'll receive payment instructions after placing your order.
+        </p>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="checkout-summary">
+        <h3>📦 Order Summary</h3>
+      </div>
+
+      <!-- PLACE ORDER BUTTON -->
+      <button type="submit" class="btn place-order-btn">Place Order</button>
+      <a href="cart.html" class="btn btn-secondary place-order-btn" style="text-align: center; text-decoration: none; background-color: #6B6B6B; margin-top: 1rem;">Back to Cart</a>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>FreshBite</h3>
+        <p>Your trusted source for delicious cookies and fresh fruits in Nairobi.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Customer Service</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="social-content.html">Social Media Posts</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FreshBite Cookies & Fruits. All rights reserved. | Nairobi, Kenya</p>
+    </div>
+  </footer>
+
+  <!-- Notification Systems -->
+  <!-- Customer notifications (WhatsApp/SMS order confirmation) -->
+  <script src="js/notification-system.js"></script>
+  <!-- Seller notifications (WhatsApp/SMS/Email when new order received) -->
+  <script src="js/seller-notification-system.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

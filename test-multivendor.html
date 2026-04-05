@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Vendor Test</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>Multi-Vendor Marketplace Test</h1>
+
+  <div class="test-section">
+    <h2>Authentication Test</h2>
+    <button onclick="openLoginModal()">Login</button>
+    <button onclick="openRegisterModal()">Register</button>
+    <button onclick="openSellerRegistrationModal()">Become Seller</button>
+    <button onclick="logoutUser()">Logout</button>
+    <p id="userStatus">Not logged in</p>
+  </div>
+
+  <div class="test-section">
+    <h2>Dashboard Test</h2>
+    <button onclick="openCustomerDashboard()">Customer Dashboard</button>
+    <button onclick="openSellerDashboard()">Seller Dashboard</button>
+    <button onclick="openAdminDashboard()">Admin Dashboard</button>
+  </div>
+
+  <div class="test-section">
+    <h2>Products Test</h2>
+    <div id="productsGrid" class="products-grid"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+      initApp();
+      initMultiVendorSystem();
+
+      // Update user status
+      function updateUserStatus() {
+        const statusEl = document.getElementById('userStatus');
+        if (currentUser) {
+          statusEl.textContent = `Logged in as: ${currentUser.name} (${currentUser.role})`;
+        } else {
+          statusEl.textContent = 'Not logged in';
+        }
+      }
+
+      // Update status periodically
+      setInterval(updateUserStatus, 1000);
+      updateUserStatus();
+
+      // Display some products
+      displayProducts(products.slice(0, 3));
+    });
+  </script>
+</body>
+</html></content>
+<parameter name="filePath">c:\Users\son\Desktop\New folder\freshbite\test-multivendor.html

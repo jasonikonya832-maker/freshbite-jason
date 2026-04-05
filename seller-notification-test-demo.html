@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller Notification System - Test & Demo</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .demo-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .demo-section {
+      background: #f9f9f9;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 8px;
+      border-left: 4px solid #8B4513;
+    }
+
+    .demo-title {
+      color: #8B4513;
+      margin-bottom: 1rem;
+    }
+
+    .demo-button {
+      background: #8B4513;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    .demo-button:hover {
+      background: #6B3410;
+    }
+
+    .demo-button.secondary {
+      background: #666;
+    }
+
+    .demo-button.secondary:hover {
+      background: #444;
+    }
+
+    .test-results {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .test-result-item {
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+    }
+
+    .test-result-item.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .test-result-item.error {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .test-result-item.info {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .message-preview {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .stat-box {
+      display: inline-block;
+      background: #8B4513;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .form-group-demo {
+      margin: 1rem 0;
+    }
+
+    .form-group-demo label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .form-group-demo input,
+    .form-group-demo select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .seller-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 0.5rem 0;
+    }
+
+    .seller-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .seller-card-name {
+      font-weight: bold;
+      color: #8B4513;
+    }
+
+    .seller-card-info {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo"><img src="logo.svg" alt="FreshBite" style="height: 50px; width: auto;"></a>
+      <button class="menu-toggle">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="how-to-order.html">How to Order</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="demo-container">
+    <h1>📬 FreshBite Seller Notification System - Test & Demo</h1>
+    <p>Interactive testing interface for seller order notifications.</p>
+
+    <!-- SECTION 1: SYSTEM STATUS -->
+    <div class="demo-section">
+      <h2 class="demo-title">📊 System Status</h2>
+      <p>Check the current status of seller notifications:</p>
+
+      <div id="systemStatus">
+        <div class="stat-box">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Total Notifications</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">-</div>
+          <div class="stat-label">New Orders</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Channels Used</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Success Rate</div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="refreshSystemStatus()">🔄 Refresh</button>
+        <button class="demo-button secondary" onclick="clearHistory()">🗑️ Clear</button>
+      </div>
+
+      <div id="statusResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- SECTION 2: TEST ORDER GENERATOR -->
+    <div class="demo-section">
+      <h2 class="demo-title">🛒 Test Order Generator</h2>
+      <p>Create a test order and notify sellers:</p>
+
+      <div class="form-group-demo">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" placeholder="John Doe" value="John Doe">
+      </div>
+
+      <div class="form-group-demo">
+        <label for="customerPhone">Customer Phone:</label>
+        <input type="tel" id="customerPhone" placeholder="+254712345678" value="+254712345678">
+      </div>
+
+      <div class="form-group-demo">
+        <label for="deliveryLocation">Delivery Location:</label>
+        <input type="text" id="deliveryLocation" placeholder="Westlands, Nairobi" value="123 Main St, Westlands">
+      </div>
+
+      <div class="form-group-demo">
+        <label for="deliveryZone">Delivery Zone:</label>
+        <select id="deliveryZone">
+          <option value="Westlands">Westlands</option>
+          <option value="Kilimani">Kilimani</option>
+          <option value="Parklands">Parklands</option>
+          <option value="Karen">Karen</option>
+          <option value="Lavington">Lavington</option>
+        </select>
+      </div>
+
+      <div class="form-group-demo">
+        <label>Select Sellers to Notify:</label>
+        <div id="sellerCheckboxes" style="margin: 1rem 0;"></div>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="generateTestOrder()">📋 Generate & Notify</button>
+        <button class="demo-button secondary" onclick="showTestOrderCode()">📝 Show Code</button>
+      </div>
+
+      <div id="testOrderResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- SECTION 3: MESSAGE PREVIEW -->
+    <div class="demo-section">
+      <h2 class="demo-title">💬 Message Preview</h2>
+      <p>Preview seller notifications in different channels:</p>
+
+      <div class="form-group-demo">
+        <label for="previewType">Notification Type:</label>
+        <select id="previewType">
+          <option value="newOrder">🛒 New Order Alert</option>
+          <option value="orderCancelled">❌ Order Cancelled</option>
+          <option value="paymentReceived">💰 Payment Received</option>
+          <option value="confirmDelivery">🚚 Confirm Delivery</option>
+        </select>
+      </div>
+
+      <div class="form-group-demo">
+        <label for="previewChannel">Channel:</label>
+        <select id="previewChannel">
+          <option value="whatsapp">WhatsApp</option>
+          <option value="sms">SMS</option>
+          <option value="inApp">In-App</option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="generateMessagePreview()">👀 Preview Message</button>
+      </div>
+
+      <div id="messagePreview" class="message-preview" style="display: none;"></div>
+    </div>
+
+    <!-- SECTION 4: SELLER MANAGEMENT -->
+    <div class="demo-section">
+      <h2 class="demo-title">👥 Seller Management</h2>
+      <p>Manage seller contact information and preferences:</p>
+
+      <div id="sellersList" style="margin: 1rem 0;"></div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="displaySellers()">📋 Load Sellers</button>
+        <button class="demo-button secondary" onclick="addTestSeller()">✨ Add Test Seller</button>
+      </div>
+
+      <div id="sellersResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- SECTION 5: NOTIFICATION HISTORY -->
+    <div class="demo-section">
+      <h2 class="demo-title">📋 Notification History</h2>
+      <p>View all seller notifications sent:</p>
+
+      <div class="form-group-demo">
+        <label for="filterBySeller">Filter by Seller:</label>
+        <select id="filterBySeller">
+          <option value="">All Sellers</option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="displayNotificationHistory()">📖 Load History</button>
+        <button class="demo-button secondary" onclick="exportHistory()">📥 Export</button>
+      </div>
+
+      <div id="historyResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- SECTION 6: PREFERENCES -->
+    <div class="demo-section">
+      <h2 class="demo-title">⚙️ Seller Preferences</h2>
+      <p>Manage notification preferences per seller:</p>
+
+      <div class="form-group-demo">
+        <label for="prefSellerId">Select Seller:</label>
+        <select id="prefSellerId"></select>
+      </div>
+
+      <div style="margin: 1rem 0;">
+        <label>
+          <input type="checkbox" id="prefWhatsapp" checked>
+          WhatsApp Notifications
+        </label><br/>
+        
+        <label>
+          <input type="checkbox" id="prefSms">
+          SMS Notifications
+        </label><br/>
+        
+        <label>
+          <input type="checkbox" id="prefEmail" checked>
+          Email Notifications
+        </label><br/>
+        
+        <label>
+          <input type="checkbox" id="prefSound" checked>
+          Sound Alert
+        </label>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="saveSellerPreferences()">💾 Save Preferences</button>
+        <button class="demo-button secondary" onclick="resetToDefaults()">🔄 Reset Defaults</button>
+      </div>
+
+      <div id="preferencesResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- SECTION 7: DOCUMENTATION -->
+    <div class="demo-section">
+      <h2 class="demo-title">📚 Documentation</h2>
+
+      <div class="button-group">
+        <a href="SELLER_NOTIFICATION_GUIDE.md" class="demo-button" target="_blank">📖 Full Guide</a>
+        <a href="checkout.html" class="demo-button secondary">🛒 Go to Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>FreshBite</h3>
+        <p>Your trusted source for delicious cookies and fresh fruits in Nairobi.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FreshBite. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Load scripts -->
+  <script src="js/seller-notification-system.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- DEMO UTILITIES -->
+  <script>
+    function displayResult(containerId, message, type = 'info') {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      container.style.display = 'block';
+      const item = document.createElement('div');
+      item.className = `test-result-item ${type}`;
+      item.textContent = message;
+      container.appendChild(item);
+
+      setTimeout(() => {
+        container.scrollTop = container.scrollHeight;
+      }, 100);
+    }
+
+    function clearResults(containerId) {
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = '';
+        container.style.display = 'none';
+      }
+    }
+
+    function refreshSystemStatus() {
+      clearResults('statusResults');
+
+      if (!sellerNotificationController) {
+        displayResult('statusResults', '❌ System not loaded', 'error');
+        return;
+      }
+
+      const stats = getSellerNotificationStats();
+      const history = sellerNotificationController.getHistory();
+
+      document.querySelectorAll('.stat-box').forEach((box, index) => {
+        const valueEl = box.querySelector('.stat-value');
+        if (valueEl) {
+          if (index === 0) valueEl.textContent = stats.total;
+          else if (index === 1) valueEl.textContent = stats.byType.newOrder || 0;
+          else if (index === 2) valueEl.textContent = Object.keys(stats.byChannel).length;
+          else if (index === 3) {
+            const successRate = stats.total > 0 ? Math.round((stats.byStatus.sent / stats.total) * 100) : 0;
+            valueEl.textContent = successRate + '%';
+          }
+        }
+      });
+
+      displayResult('statusResults', `✅ Total: ${stats.total} notifications`, 'success');
+      displayResult('statusResults', `📦 New Orders: ${stats.byType.newOrder || 0}`, 'info');
+      displayResult('statusResults', `📱 WhatsApp: ${stats.byChannel.whatsapp || 0}`, 'info');
+    }
+
+    function clearHistory() {
+      if (confirm('Clear all notification history?')) {
+        sellerNotificationController.clearHistory();
+        displayResult('statusResults', '✅ History cleared', 'success');
+        refreshSystemStatus();
+      }
+    }
+
+    function generateTestOrder() {
+      clearResults('testOrderResults');
+
+      const customerName = document.getElementById('customerName').value;
+      const customerPhone = document.getElementById('customerPhone').value;
+      const deliveryLocation = document.getElementById('deliveryLocation').value;
+      const deliveryZone = document.getElementById('deliveryZone').value;
+
+      displayResult('testOrderResults', '📋 Creating test order...', 'info');
+
+      // Get selected sellers
+      const checkboxes = document.querySelectorAll('input[name="seller-checkbox"]:checked');
+      if (checkboxes.length === 0) {
+        displayResult('testOrderResults', '⚠️ Select at least one seller', 'error');
+        return;
+      }
+
+      const selectedSellerIds = Array.from(checkboxes).map(cb => cb.value);
+
+      // Create test order
+      const testOrder = {
+        id: `FB_TEST_${Date.now()}`,
+        timestamp: new Date().toISOString(),
+        customer: {
+          firstName: customerName.split(' ')[0],
+          lastName: customerName.split(' ')[1] || 'Test',
+          email: 'customer@test.com',
+          phone: customerPhone
+        },
+        address: {
+          address: deliveryLocation,
+          city: 'Nairobi',
+          postalCode: '00100'
+        },
+        delivery: {
+          zone: deliveryZone,
+          fee: 200,
+          time: '2:00 PM - 4:00 PM',
+          date: new Date().toISOString(),
+          type: 'today'
+        },
+        items: []
+      };
+
+      // Add items for each selected seller
+      selectedSellerIds.forEach((sellerId, index) => {
+        testOrder.items.push(
+          { 
+            name: 'Test Product ' + (index + 1), 
+            quantity: 1 + index, 
+            price: 500 + (index * 100), 
+            vendorId: sellerId,
+            isCustom: false
+          }
+        );
+      });
+
+      displayResult('testOrderResults', `✅ Order created: ${testOrder.id}`, 'success');
+
+      // Send notifications
+      (async () => {
+        for (const sellerId of selectedSellerIds) {
+          const seller = sellers.find(s => s.id === sellerId);
+          const items = testOrder.items.filter(i => i.vendorId === sellerId);
+
+          if (seller && items.length > 0) {
+            try {
+              const result = await sendSellerOrderNotification(testOrder, items, seller, 'newOrder');
+              displayResult('testOrderResults', `✅ Notified ${seller.businessName}`, 'success');
+            } catch (error) {
+              displayResult('testOrderResults', `❌ Error: ${error.message}`, 'error');
+            }
+          }
+        }
+      })();
+    }
+
+    function showTestOrderCode() {
+      clearResults('testOrderResults');
+      const code = `
+// Group order items by seller
+const sellerMap = groupOrderBySellerItems(order);
+
+// Notify each seller
+for (const [sellerId, items] of sellerMap) {
+  const seller = sellers.find(s => s.id === sellerId);
+  if (seller) {
+    await sendSellerOrderNotification(order, items, seller, 'newOrder');
+  }
+}
+      `.trim();
+      displayResult('testOrderResults', code, 'info');
+    }
+
+    function generateMessagePreview() {
+      clearResults('messagePreview');
+
+      const notificationType = document.getElementById('previewType').value;
+      const channel = document.getElementById('previewChannel').value;
+
+      const testOrder = {
+        id: 'FB1234567890',
+        timestamp: new Date().toISOString(),
+        customer: { firstName: 'John', phone: '+254712345678', email: 'john@test.com' },
+        address: { address: '123 Main St', city: 'Westlands' },
+        delivery: { zone: 'Westlands', time: '2:00 PM - 4:00 PM', type: 'today' },
+        total: 2300
+      };
+
+      const testItems = [
+        { name: 'Choco Cookies', quantity: 2, price: 500 },
+        { name: 'Fresh Fruits', quantity: 1, price: 1500 }
+      ];
+
+      const template = SELLER_NOTIFICATION_TEMPLATES[notificationType];
+      if (!template) {
+        displayResult('messagePreview', '❌ No template found', 'error');
+        return;
+      }
+
+      let message = '';
+      if (channel === 'whatsapp' && template.whatsapp) {
+        message = template.whatsapp(testOrder, testItems);
+      } else if (channel === 'sms' && template.sms) {
+        message = template.sms(testOrder, testItems);
+      } else if (channel === 'inApp' && template.inApp) {
+        const notif = template.inApp(testOrder, testItems);
+        message = `Title: ${notif.title}\nMessage: ${notif.message}\nAction: ${notif.action}`;
+      }
+
+      const container = document.getElementById('messagePreview');
+      container.style.display = 'block';
+      container.textContent = message;
+    }
+
+    function displaySellers() {
+      clearResults('sellersResults');
+
+      if (!sellers || sellers.length === 0) {
+        displayResult('sellersResults', '❌ No sellers found', 'error');
+        return;
+      }
+
+      displayResult('sellersResults', `📋 Total sellers: ${sellers.length}`, 'info');
+
+      sellers.forEach(seller => {
+        displayResult('sellersResults', 
+          `✅ ${seller.businessName}\n   Phone: ${seller.phoneNumber}\n   Email: ${seller.email}`, 
+          'success');
+      });
+    }
+
+    function addTestSeller() {
+      clearResults('sellersResults');
+
+      const testSeller = {
+        id: `seller-test-${Date.now()}`,
+        businessName: `Test Shop ${Date.now()}`,
+        phoneNumber: '+254712345678',
+        email: `seller${Date.now()}@test.com`
+      };
+
+      sellers.push(testSeller);
+      localStorage.setItem('sellers', JSON.stringify(sellers));
+
+      displayResult('sellersResults', `✅ Test seller added: ${testSeller.businessName}`, 'success');
+      updateSellerSelectors();
+    }
+
+    function updateSellerSelectors() {
+      const checkboxContainer = document.getElementById('sellerCheckboxes');
+      const filterSelect = document.getElementById('filterBySeller');
+      const prefSelect = document.getElementById('prefSellerId');
+
+      checkboxContainer.innerHTML = '';
+      filterSelect.innerHTML = '<option value="">All Sellers</option>';
+      prefSelect.innerHTML = '';
+
+      sellers.forEach(seller => {
+        // Checkboxes for test order
+        const checkbox = document.createElement('label');
+        checkbox.style.display = 'block';
+        checkbox.style.marginBottom = '0.5rem';
+        checkbox.innerHTML = `
+          <input type="checkbox" name="seller-checkbox" value="${seller.id}">
+          ${seller.businessName}
+        `;
+        checkboxContainer.appendChild(checkbox);
+
+        // Options for filter
+        const option1 = document.createElement('option');
+        option1.value = seller.id;
+        option1.textContent = seller.businessName;
+        filterSelect.appendChild(option1);
+
+        // Options for preferences
+        const option2 = document.createElement('option');
+        option2.value = seller.id;
+        option2.textContent = seller.businessName;
+        prefSelect.appendChild(option2);
+      });
+    }
+
+    function displayNotificationHistory() {
+      clearResults('historyResults');
+
+      const filterId = document.getElementById('filterBySeller').value;
+      let history = sellerNotificationController.getHistory();
+
+      if (filterId) {
+        history = history.filter(n => n.sellerId === filterId);
+      }
+
+      if (history.length === 0) {
+        displayResult('historyResults', '📭 No notifications', 'info');
+        return;
+      }
+
+      displayResult('historyResults', `📋 Total: ${history.length}`, 'info');
+
+      history.forEach(notif => {
+        const channels = Object.keys(notif.channels || {}).join(', ');
+        displayResult('historyResults', 
+          `Order: ${notif.orderId} | Type: ${notif.notificationType} | Channels: ${channels}`, 
+          'success');
+      });
+    }
+
+    function exportHistory() {
+      const history = sellerNotificationController.getHistory();
+      const json = JSON.stringify(history, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `seller-notifications-${Date.now()}.json`;
+      a.click();
+
+      displayResult('historyResults', '✅ Exported', 'success');
+    }
+
+    function saveSellerPreferences() {
+      clearResults('preferencesResults');
+
+      const sellerId = document.getElementById('prefSellerId').value;
+      if (!sellerId) {
+        displayResult('preferencesResults', '⚠️ Select a seller', 'error');
+        return;
+      }
+
+      const prefs = {
+        whatsappEnabled: document.getElementById('prefWhatsapp').checked,
+        smsEnabled: document.getElementById('prefSms').checked,
+        emailEnabled: document.getElementById('prefEmail').checked,
+        soundEnabled: document.getElementById('prefSound').checked
+      };
+
+      Object.entries(prefs).forEach(([key, value]) => {
+        sellerNotificationController.setSellerPreference(sellerId, key, value);
+      });
+
+      displayResult('preferencesResults', '✅ Preferences saved', 'success');
+    }
+
+    function resetToDefaults() {
+      document.getElementById('prefWhatsapp').checked = true;
+      document.getElementById('prefSms').checked = false;
+      document.getElementById('prefEmail').checked = true;
+      document.getElementById('prefSound').checked = true;
+
+      displayResult('preferencesResults', '✅ Reset to defaults', 'success');
+    }
+
+    // Initialize on page load
+    window.addEventListener('load', function() {
+      updateSellerSelectors();
+      refreshSystemStatus();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Review System Test</title>
+    <script src="js/app.js"></script>
+</head>
+<body>
+    <h1>Review System Test</h1>
+    <div id="test-output"></div>
+
+    <script>
+        // Test the review functions
+        document.addEventListener('DOMContentLoaded', () => {
+            const testProduct = products[0]; // Chocolate Chip Cookies
+            const avgRating = getAverageRating(testProduct);
+            const stars = generateStarRating(avgRating, true);
+
+            const output = document.getElementById('test-output');
+            output.innerHTML = `
+                <h2>Product: ${testProduct.name}</h2>
+                <p>Average Rating: ${avgRating}</p>
+                <p>Stars: ${stars}</p>
+                <p>Number of Reviews: ${testProduct.reviews.length}</p>
+                <h3>Sample Review:</h3>
+                <p>"${testProduct.reviews[0].text}" - ${testProduct.reviews[0].author}</p>
+            `;
+        });
+    </script>
+</body>
+</html>

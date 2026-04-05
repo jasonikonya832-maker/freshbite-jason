@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription System Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Subscription System Test</h1>
+        <div id="test-results"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Test subscription system after app.js loads
+        setTimeout(() => {
+            const results = document.getElementById('test-results');
+
+            let output = '<h2>Test Results:</h2>';
+
+            // Test subscription plans
+            if (typeof subscriptionPlans !== 'undefined') {
+                output += '<p>✅ Subscription plans loaded: ' + subscriptionPlans.length + ' plans</p>';
+                subscriptionPlans.forEach(plan => {
+                    output += `<p>&nbsp;&nbsp;- ${plan.name}: KES ${plan.price}/${plan.type} (${plan.discount}% discount)</p>`;
+                });
+            } else {
+                output += '<p>❌ Subscription plans not loaded</p>';
+            }
+
+            // Test functions
+            const functions = [
+                'initSubscriptionSystem',
+                'isSubscriber',
+                'getSubscriberDiscount',
+                'getSubscriberSavings',
+                'openSubscriptionModal',
+                'subscribeToPlan'
+            ];
+
+            output += '<h3>Functions Check:</h3>';
+            functions.forEach(func => {
+                if (typeof window[func] === 'function') {
+                    output += `<p>✅ ${func} function exists</p>`;
+                } else {
+                    output += `<p>❌ ${func} function missing</p>`;
+                }
+            });
+
+            // Test subscriber status
+            output += '<h3>Subscriber Status:</h3>';
+            if (typeof isSubscriber === 'function') {
+                output += '<p>Current subscriber status: ' + (isSubscriber() ? '✅ Active subscriber' : '❌ Not a subscriber') + '</p>';
+            }
+
+            results.innerHTML = output;
+        }, 100);
+    </script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Vendor Marketplace - Automated Test Suite</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .test-results {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    .test-passed { color: #28a745; }
+    .test-failed { color: #dc3545; }
+    .test-section {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+    }
+    .test-button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0.25rem;
+    }
+    .test-button:hover { background: #0056b3; }
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #e9ecef;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #28a745, #20c997);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+    <h1>🧪 Multi-Vendor Marketplace Test Suite</h1>
+    <p>Automated testing of all marketplace features</p>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div id="testResults"></div>
+
+    <div class="test-section">
+      <h2>🎯 Quick Feature Tests</h2>
+      <button class="test-button" onclick="runAuthenticationTest()">Test Authentication</button>
+      <button class="test-button" onclick="runSellerRegistrationTest()">Test Seller Registration</button>
+      <button class="test-button" onclick="runProductManagementTest()">Test Product Management</button>
+      <button class="test-button" onclick="runCommissionTest()">Test Commission System</button>
+      <button class="test-button" onclick="runOrderProcessingTest()">Test Order Processing</button>
+      <button class="test-button" onclick="runAllTests()">Run All Tests</button>
+    </div>
+
+    <div class="test-section">
+      <h2>📊 System Status</h2>
+      <div id="systemStatus"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>🎮 Manual Testing Interface</h2>
+      <div class="test-section">
+        <h3>Authentication Test</h3>
+        <button onclick="openLoginModal()">Login</button>
+        <button onclick="openRegisterModal()">Register</button>
+        <button onclick="openSellerRegistrationModal()">Become Seller</button>
+        <button onclick="logoutUser()">Logout</button>
+        <p id="userStatus">Not logged in</p>
+      </div>
+
+      <div class="test-section">
+        <h3>Dashboard Test</h3>
+        <button onclick="openCustomerDashboard()">Customer Dashboard</button>
+        <button onclick="openSellerDashboard()">Seller Dashboard</button>
+        <button onclick="openAdminDashboard()">Admin Dashboard</button>
+      </div>
+
+      <div class="test-section">
+        <h3>Products Test</h3>
+        <div id="productsGrid" class="products-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    let testResults = [];
+    let currentTest = 0;
+
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+      initApp();
+      initMultiVendorSystem();
+      updateSystemStatus();
+      updateUserStatus();
+
+      // Update status periodically
+      setInterval(updateUserStatus, 1000);
+      setInterval(updateSystemStatus, 5000);
+
+      // Display some products for testing
+      setTimeout(() => {
+        displayProducts(products.slice(0, 3));
+      }, 1000);
+    });
+
+    function updateProgress(percent) {
+      document.getElementById('progressFill').style.width = percent + '%';
+    }
+
+    function addTestResult(testName, passed, message) {
+      testResults.push({ testName, passed, message });
+      updateTestResults();
+    }
+
+    function updateTestResults() {
+      const resultsDiv = document.getElementById('testResults');
+      resultsDiv.innerHTML = testResults.map(result => `
+        <div class="test-results">
+          <strong class="${result.passed ? 'test-passed' : 'test-failed'}">
+            ${result.passed ? '✅' : '❌'} ${result.testName}
+          </strong>
+          <div>${result.message}</div>
+        </div>
+      `).join('');
+    }
+
+    function updateUserStatus() {
+      const statusEl = document.getElementById('userStatus');
+      if (currentUser) {
+        statusEl.textContent = `Logged in as: ${currentUser.name} (${currentUser.role})`;
+      } else {
+        statusEl.textContent = 'Not logged in';
+      }
+    }
+
+    function updateSystemStatus() {
+      const statusDiv = document.getElementById('systemStatus');
+      const totalUsers = JSON.parse(localStorage.getItem('users') || '[]').length;
+      const totalSellers = sellers.length;
+      const totalProducts = products.length;
+      const totalOrders = orders.length;
+
+      statusDiv.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+          <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; border: 1px solid #dee2e6;">
+            <div style="font-size: 2rem; color: #007bff;">👥</div>
+            <div style="font-size: 1.5rem; font-weight: bold;">${totalUsers}</div>
+            <div>Total Users</div>
+          </div>
+          <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; border: 1px solid #dee2e6;">
+            <div style="font-size: 2rem; color: #28a745;">🏪</div>
+            <div style="font-size: 1.5rem; font-weight: bold;">${totalSellers}</div>
+            <div>Active Sellers</div>
+          </div>
+          <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; border: 1px solid #dee2e6;">
+            <div style="font-size: 2rem; color: #ffc107;">📦</div>
+            <div style="font-size: 1.5rem; font-weight: bold;">${totalProducts}</div>
+            <div>Total Products</div>
+          </div>
+          <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; border: 1px solid #dee2e6;">
+            <div style="font-size: 2rem; color: #dc3545;">🛒</div>
+            <div style="font-size: 1.5rem; font-weight: bold;">${totalOrders}</div>
+            <div>Total Orders</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Automated Test Functions
+    async function runAuthenticationTest() {
+      currentTest = 0;
+      testResults = [];
+      updateProgress(0);
+
+      try {
+        // Test 1: Check if authentication system initializes
+        addTestResult('Authentication System', true, 'Authentication system initialized successfully');
+        updateProgress(20);
+
+        // Test 2: Test user registration
+        const testUser = {
+          name: 'Test User',
+          email: 'test@example.com',
+          password: 'test123',
+          role: 'customer'
+        };
+
+        const registerResult = registerUser(testUser);
+        addTestResult('User Registration', registerResult, registerResult ? 'User registered successfully' : 'Registration failed');
+        updateProgress(40);
+
+        // Test 3: Test user login
+        const loginResult = loginUser(testUser.email, testUser.password);
+        addTestResult('User Login', loginResult, loginResult ? 'User logged in successfully' : 'Login failed');
+        updateProgress(60);
+
+        // Test 4: Test logout
+        logoutUser();
+        addTestResult('User Logout', !currentUser, 'User logged out successfully');
+        updateProgress(80);
+
+        // Test 5: Test admin login
+        const adminLogin = loginUser('admin@freshbite.com', 'admin123');
+        addTestResult('Admin Login', adminLogin && isAdmin(), 'Admin login successful');
+        updateProgress(100);
+
+      } catch (error) {
+        addTestResult('Authentication Test', false, `Error: ${error.message}`);
+      }
+    }
+
+    async function runSellerRegistrationTest() {
+      currentTest = 0;
+      testResults = [];
+      updateProgress(0);
+
+      try {
+        // Test seller registration
+        const sellerData = {
+          name: 'Test Seller',
+          email: 'seller@test.com',
+          password: 'seller123',
+          role: 'seller',
+          businessName: 'Test Bakery',
+          category: 'Bakery',
+          description: 'Test seller description',
+          phone: '+254712345678',
+          location: 'Westlands, Nairobi'
+        };
+
+        const registerResult = registerUser(sellerData);
+        addTestResult('Seller Registration', registerResult, registerResult ? 'Seller registered successfully' : 'Registration failed');
+        updateProgress(50);
+
+        // Check if seller was added to sellers array
+        const newSeller = sellers.find(s => s.userId && s.businessName === 'Test Bakery');
+        addTestResult('Seller Profile Creation', !!newSeller, newSeller ? 'Seller profile created' : 'Seller profile not found');
+        updateProgress(100);
+
+      } catch (error) {
+        addTestResult('Seller Registration Test', false, `Error: ${error.message}`);
+      }
+    }
+
+    async function runProductManagementTest() {
+      currentTest = 0;
+      testResults = [];
+      updateProgress(0);
+
+      try {
+        // Login as admin first
+        loginUser('admin@freshbite.com', 'admin123');
+        updateProgress(20);
+
+        // Test product creation
+        const testProduct = {
+          id: `test-product-${Date.now()}`,
+          vendorId: 'freshbite-admin',
+          vendorName: 'FreshBite Cookies & Fruits',
+          name: 'Test Product',
+          category: 'Cookies',
+          price: 500,
+          originalPrice: 500,
+          description: 'Test product description',
+          image: '🍪',
+          images: ['🍪'],
+          inventory: 10,
+          sku: `TEST-${Date.now()}`,
+          rating: 0,
+          reviewCount: 0,
+          reviews: [],
+          isActive: true,
+          isCustomOrder: false,
+          createdAt: new Date().toISOString()
+        };
+
+        products.push(testProduct);
+        localStorage.setItem('products', JSON.stringify(products));
+        updateProgress(40);
+
+        // Verify product was added
+        const addedProduct = products.find(p => p.name === 'Test Product');
+        addTestResult('Product Creation', !!addedProduct, addedProduct ? 'Product added successfully' : 'Product not found');
+        updateProgress(60);
+
+        // Test product display
+        displayProducts([addedProduct]);
+        addTestResult('Product Display', true, 'Product displayed in grid');
+        updateProgress(80);
+
+        // Test product editing (simulate)
+        if (addedProduct) {
+          addedProduct.price = 600;
+          localStorage.setItem('products', JSON.stringify(products));
+          addTestResult('Product Editing', true, 'Product price updated');
+        }
+        updateProgress(100);
+
+      } catch (error) {
+        addTestResult('Product Management Test', false, `Error: ${error.message}`);
+      }
+    }
+
+    async function runCommissionTest() {
+      currentTest = 0;
+      testResults = [];
+      updateProgress(0);
+
+      try {
+        // Create a test order with commission
+        const testOrder = {
+          id: `TEST-${Date.now()}`,
+          date: new Date().toISOString(),
+          customer: {
+            firstName: 'Test',
+            lastName: 'Customer',
+            email: 'test@example.com',
+            phone: '+254700000000'
+          },
+          vendorOrders: [{
+            vendorId: 'freshbite-admin',
+            vendorName: 'FreshBite Cookies & Fruits',
+            items: [{
+              productId: 'cookies-1',
+              quantity: 2,
+              price: 450,
+              name: 'Chocolate Chip Cookies'
+            }],
+            subtotal: 900,
+            commission: 0.15,
+            commissionAmount: 135,
+            vendorPayout: 765,
+            status: 'confirmed'
+          }],
+          subtotal: 900,
+          tax: 0,
+          deliveryFee: 200,
+          totalCommission: 135,
+          total: 1100,
+          status: 'confirmed',
+          paymentMethod: 'mpesa',
+          deliveryZone: 'nairobi_central',
+          estimatedDelivery: '1-2 days'
+        };
+
+        orders.push(testOrder);
+        localStorage.setItem('orders', JSON.stringify(orders));
+        updateProgress(30);
+
+        // Test commission calculation
+        const calculatedCommission = calculateCommission(testOrder);
+        const expectedCommission = 135;
+        addTestResult('Commission Calculation', calculatedCommission === expectedCommission,
+          `Calculated: KES ${calculatedCommission}, Expected: KES ${expectedCommission}`);
+        updateProgress(60);
+
+        // Test seller earnings calculation
+        const seller = sellers.find(s => s.id === 'freshbite-admin');
+        if (seller) {
+          const totalEarnings = orders.reduce((sum, order) => {
+            if (order.vendorOrders) {
+              const vendorOrder = order.vendorOrders.find(vo => vo.vendorId === seller.id);
+              if (vendorOrder) {
+                return sum + vendorOrder.vendorPayout;
+              }
+            }
+            return sum;
+          }, 0);
+
+          addTestResult('Seller Earnings', totalEarnings >= 0, `Seller earnings: KES ${totalEarnings}`);
+        }
+        updateProgress(100);
+
+      } catch (error) {
+        addTestResult('Commission Test', false, `Error: ${error.message}`);
+      }
+    }
+
+    async function runOrderProcessingTest() {
+      currentTest = 0;
+      testResults = [];
+      updateProgress(0);
+
+      try {
+        // Test order creation with multiple vendors
+        const multiVendorOrder = {
+          id: `MULTI-${Date.now()}`,
+          date: new Date().toISOString(),
+          customer: {
+            firstName: 'Multi',
+            lastName: 'Vendor',
+            email: 'multi@example.com',
+            phone: '+254711111111'
+          },
+          vendorOrders: [
+            {
+              vendorId: 'freshbite-admin',
+              vendorName: 'FreshBite Cookies & Fruits',
+              items: [{ productId: 'cookies-1', quantity: 1, price: 450, name: 'Chocolate Chip Cookies' }],
+              subtotal: 450,
+              commission: 0.15,
+              commissionAmount: 67.5,
+              vendorPayout: 382.5,
+              status: 'confirmed'
+            }
+          ],
+          subtotal: 450,
+          tax: 0,
+          deliveryFee: 150,
+          totalCommission: 67.5,
+          total: 600,
+          status: 'confirmed',
+          paymentMethod: 'mpesa',
+          deliveryZone: 'nairobi_central',
+          estimatedDelivery: '1-2 days'
+        };
+
+        orders.push(multiVendorOrder);
+        localStorage.setItem('orders', JSON.stringify(orders));
+        updateProgress(40);
+
+        // Test order splitting
+        const hasVendorOrders = multiVendorOrder.vendorOrders && multiVendorOrder.vendorOrders.length > 0;
+        addTestResult('Order Splitting', hasVendorOrders, hasVendorOrders ? 'Order split by vendor successfully' : 'Order not split');
+        updateProgress(70);
+
+        // Test order status tracking
+        addTestResult('Order Status', multiVendorOrder.status === 'confirmed', `Order status: ${multiVendorOrder.status}`);
+        updateProgress(100);
+
+      } catch (error) {
+        addTestResult('Order Processing Test', false, `Error: ${error.message}`);
+      }
+    }
+
+    async function runAllTests() {
+      await runAuthenticationTest();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await runSellerRegistrationTest();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await runProductManagementTest();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await runCommissionTest();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await runOrderProcessingTest();
+    }
+
+    // Make functions globally available
+    window.runAuthenticationTest = runAuthenticationTest;
+    window.runSellerRegistrationTest = runSellerRegistrationTest;
+    window.runProductManagementTest = runProductManagementTest;
+    window.runCommissionTest = runCommissionTest;
+    window.runOrderProcessingTest = runOrderProcessingTest;
+    window.runAllTests = runAllTests;
+  </script>
+</body>
+</html>

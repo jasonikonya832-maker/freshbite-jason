@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - FreshBite Cookies & Fruits</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo"><img src="logo.svg" alt="FreshBite" style="height: 50px; width: auto;"></a>
+      <button class="menu-toggle">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="how-to-order.html">How to Order</a></li>
+        <li class="cart-icon" onclick="window.location.href='cart.html'">
+          🛒
+          <span class="cart-count" style="display: none;">0</span>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- PRODUCTS PAGE -->
+  <section class="featured-section">
+    <h2 class="section-title">Our Products</h2>
+    
+    <div class="categories-grid">
+      <button class="category-btn active" data-category="All">All Products</button>
+      <button class="category-btn" data-category="Cookies">🍪 Cookies</button>
+      <button class="category-btn" data-category="Fruits">🍎 Fruits</button>
+    </div>
+
+    <div class="products-grid"></div>
+  </section>
+
+  <!-- COMBO DEALS SECTION -->
+  <section class="featured-section combo-deals-section">
+    <h2 class="section-title">Special Combo Deals</h2>
+    <p class="section-subtitle">Mix and match for the best value! Our curated bundles save you money and time.</p>
+    <div class="combo-deals-grid">
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>FreshBite</h3>
+        <p>Your trusted source for delicious cookies and fresh fruits in Nairobi.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Customer Service</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="social-content.html">Social Media Posts</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FreshBite Cookies & Fruits. All rights reserved. | Nairobi, Kenya</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+      initApp();
+      initMultiVendorSystem();
+    });
+  </script>
+</body>
+</html>

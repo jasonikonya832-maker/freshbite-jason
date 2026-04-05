@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Order - FreshBite Cookies & Fruits</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .howto-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .howto-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .howto-header h1 {
+            font-size: 2.5em;
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+
+        .howto-header p {
+            font-size: 1.1em;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .step-card {
+            background: #FFF8E7;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 5px solid #FF9F43;
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: #FF9F43;
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .step-card h3 {
+            color: #8B4513;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .step-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .step-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .detailed-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #FFE8D0;
+        }
+
+        .detailed-section h2 {
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #FF9F43;
+            padding-bottom: 10px;
+        }
+
+        .detailed-steps {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+        }
+
+        .detailed-steps li {
+            counter-increment: step-counter;
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .detailed-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            background: #FF9F43;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .tip-box {
+            background: #E8F5E9;
+            border-left: 4px solid #6FCF97;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip-box strong {
+            color: #2E7D32;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .warning-box {
+            background: #FFF3E0;
+            border-left: 4px solid #FF9F43;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box strong {
+            color: #E65100;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .faq-section {
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #FFE8D0;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #FF9F43;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: #E8881B;
+        }
+
+        .faq-toggle {
+            font-size: 1.2em;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+            display: none;
+            background: #FFFBF7;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .delivery-zones-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .delivery-zones-table th {
+            background: #FF9F43;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .delivery-zones-table td {
+            border: 1px solid #E0E0E0;
+            padding: 12px;
+        }
+
+        .delivery-zones-table tr:nth-child(even) {
+            background: #FFF8E7;
+        }
+
+        .quick-tips {
+            background: linear-gradient(135deg, #FF9F43 0%, #8B4513 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+
+        .quick-tips h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .quick-tips ul {
+            list-style-position: inside;
+            line-height: 2;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #FF9F43;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #E8881B;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .howto-header h1 {
+                font-size: 2em;
+            }
+
+            .detailed-section {
+                padding: 20px;
+            }
+
+            .faq-question {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .faq-toggle {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" width="30" height="30">
+                    <circle cx="50" cy="50" r="40" fill="#FF9F43"/>
+                    <path d="M40 30 Q50 20 60 30" stroke="#8B4513" stroke-width="2" fill="none"/>
+                    <circle cx="35" cy="55" r="8" fill="#8B4513"/>
+                    <circle cx="50" cy="60" r="8" fill="#8B4513"/>
+                    <circle cx="65" cy="55" r="8" fill="#8B4513"/>
+                    <path d="M20 70 L80 70" stroke="#6FCF97" stroke-width="3"/>
+                </svg>
+                <span>FreshBite</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="nav-how-to"><a href="how-to-order.html" class="active">How to Order</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="howto-container">
+        <!-- Header -->
+        <div class="howto-header">
+            <h1>📦 How to Order from FreshBite</h1>
+            <p>Simple, quick, and delicious! Follow these easy steps to order fresh cookies and fruits delivered to your door in Nairobi.</p>
+        </div>
+
+        <!-- Quick Overview Steps -->
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">🛍️</div>
+                <h3>Browse Products</h3>
+                <p>Explore our delicious selection of homemade cookies and fresh fruits.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">🛒</div>
+                <h3>Add to Cart</h3>
+                <p>Select items you want and add them to your shopping cart.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">📍</div>
+                <h3>Checkout</h3>
+                <p>Fill in your delivery details and select your delivery zone.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-icon">💳</div>
+                <h3>Pay</h3>
+                <p>Choose your payment method and complete your order.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <div class="step-icon">✅</div>
+                <h3>Confirm</h3>
+                <p>Get order confirmation with delivery details and payment info.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">6</div>
+                <div class="step-icon">🚚</div>
+                <h3>Enjoy!</h3>
+                <p>Receive your order at the estimated delivery time. Fresh & delicious!</p>
+            </div>
+        </div>
+
+        <!-- Detailed Shopping Guide -->
+        <div class="detailed-section">
+            <h2>🛍️ Step 1: Shopping</h2>
+            <ul class="detailed-steps">
+                <li>
+                    <strong>Go to Shop:</strong> Click the "Shop" link in the navigation menu or click "Shop Now" on the homepage.
+                </li>
+                <li>
+                    <strong>Browse Products:</strong> You'll see all our items with names, prices, and beautiful food emojis. We have 4 types of cookies and 5 types of fresh fruits.
+                </li>
+                <li>
+                    <strong>Filter by Category:</strong> Use the buttons at the top:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>"All" - See everything</li>
+                        <li>"🍪 Cookies" - See our homemade cookies</li>
+                        <li>"🍎 Fruits" - See fresh fruits</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>View Details:</strong> Click on any product to see more information about it.
+                </li>
+                <li>
+                    <strong>Add to Cart:</strong> When you find something you like, click the "Add to Cart" button. You'll see a green notification confirming the item was added.
+                </li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> You can add different items from different visits - your cart is saved! The cart count in the top right shows how many items you have.
+            </div>
+        </div>
+
+        <!-- Cart Review -->
+        <div class="detailed-section">
+            <h2>🛒 Step 2: Review Your Cart</h2>
+            <ul class="detailed-steps">
+                <li>
+                    <strong>Go to Cart:</strong> Click the "Cart" link in the top navigation menu.
+                </li>
+                <li>
+                    <strong>See Your Items:</strong> All your selected items are listed with:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Product picture (emoji)</li>
+                        <li>Product name</li>
+                        <li>Unit price in KES</li>
+                        <li>Quantity</li>
+                        <li>Total for that item</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Adjust Quantities:</strong> Use the + and - buttons to increase or decrease quantities. The total updates instantly!
+                </li>
+                <li>
+                    <strong>Remove Items:</strong> Click the "Remove" button if you changed your mind. The item disappears instantly.
+                </li>
+                <li>
+                    <strong>View Order Summary:</strong> At the bottom you'll see:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Subtotal:</strong> Total price of all items</li>
+                        <li><strong>Tax (16%):</strong> Government tax on purchase</li>
+                        <li><strong>Total:</strong> Subtotal + Tax</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Proceed to Checkout:</strong> Click the blue "Proceed to Checkout" button when you're happy with your cart.
+                </li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Remember:</strong> Your cart is saved on your device. If you clear browser cookies or use a different device, your cart will be empty. If you leave and come back, your items will still be there!
+            </div>
+        </div>
+
+        <!-- Checkout Process -->
+        <div class="detailed-section">
+            <h2>📍 Step 3: Checkout & Delivery Details</h2>
+            <ul class="detailed-steps">
+                <li>
+                    <strong>Enter Shipping Information:</strong> Fill in your details:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>First Name:</strong> Your first name</li>
+                        <li><strong>Last Name:</strong> Your last name</li>
+                        <li><strong>Email:</strong> Your email address (for order confirmation)</li>
+                        <li><strong>Phone:</strong> Your phone number (for delivery confirmation). Use format: +254712345678</li>
+                        <li><strong>Street Address:</strong> Your street address in detail</li>
+                        <li><strong>City:</strong> Nairobi (our service area)</li>
+                        <li><strong>Postal Code:</strong> Your postal code (e.g., 00100, 00200)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Select Delivery Zone:</strong> Click on one of our 7 delivery zones:
+                </li>
+            </ul>
+
+            <table class="delivery-zones-table">
+                <thead>
+                    <tr>
+                        <th>Delivery Zone</th>
+                        <th>Areas Covered</th>
+                        <th>Fee</th>
+                        <th>Estimated Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Central Nairobi</strong></td>
+                        <td>CBD, Westlands, Midtown</td>
+                        <td>KES 150</td>
+                        <td>30-45 minutes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>North Nairobi</strong></td>
+                        <td>Kasarani, Embakasi North</td>
+                        <td>KES 200</td>
+                        <td>45-60 minutes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>South Nairobi</strong></td>
+                        <td>Karen, Langata, Southlands</td>
+                        <td>KES 200</td>
+                        <td>45-60 minutes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>East Nairobi</strong></td>
+                        <td>Embakasi East, Njiru</td>
+                        <td>KES 250</td>
+                        <td>60-75 minutes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>West Nairobi</strong></td>
+                        <td>Parklands, Highridge, Kilimani</td>
+                        <td>KES 200</td>
+                        <td>45-60 minutes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Far North</strong></td>
+                        <td>Ruai, Dandora, Runda</td>
+                        <td>KES 300</td>
+                        <td>90-120 minutes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Far South</strong></td>
+                        <td>Ongata Rongai, Kiserian</td>
+                        <td>KES 300</td>
+                        <td>90-120 minutes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ul class="detailed-steps" style="counter-reset: step-counter 2;">
+                <li style="margin-top: 20px;">
+                    <strong>Zone Selection Tips:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Click on a zone card to select it - it will turn orange with a checkmark</li>
+                        <li>The delivery fee for that zone appears instantly</li>
+                        <li>Your total updates automatically to include the delivery fee</li>
+                        <li>Not sure? Check the "Areas Covered" column above</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> These are our standard delivery times. During peak hours or bad weather, it might take slightly longer. We always do our best to deliver on time!
+            </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="detailed-section">
+            <h2>💳 Step 4: Payment Method</h2>
+            <ul class="detailed-steps">
+                <li>
+                    <strong>Choose Your Payment Method:</strong> Select one of these options:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>📱 M-Pesa:</strong> Pay via M-Pesa (Most popular!). You'll receive payment instructions after confirming your order.</li>
+                        <li><strong>📱 Airtel Money:</strong> Pay via Airtel Money. Same process as M-Pesa.</li>
+                        <li><strong>💳 Credit/Debit Card:</strong> Use your Visa or Mastercard. Payment details provided after order.</li>
+                        <li><strong>🏦 Bank Transfer:</strong> Transfer funds directly. Bank details provided after order.</li>
+                        <li><strong>💵 Cash on Delivery:</strong> Pay when your order arrives! No payment needed online.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Recommended for You:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>If you're in Central Nairobi → <strong>Cash on Delivery</strong> or <strong>M-Pesa</strong></li>
+                        <li>If you're far away → <strong>M-Pesa</strong> or <strong>Card</strong> (payment first, then delivery)</li>
+                        <li>If you prefer online → <strong>Card</strong> or <strong>Bank Transfer</strong></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Cash on Delivery Important:</strong> When using "Pay when order arrives" option, you must have the exact cash ready. Our driver will have limited change!
+            </div>
+        </div>
+
+        <!-- Place Order -->
+        <div class="detailed-section">
+            <h2>✅ Step 5: Place Your Order</h2>
+            <ul class="detailed-steps">
+                <li>
+                    <strong>Review Everything:</strong> Before clicking, check the right panel (Order Summary) shows:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>All your items with quantities</li>
+                        <li>Correct subtotal</li>
+                        <li>Tax calculation (16%)</li>
+                        <li>Your selected delivery zone</li>
+                        <li>Delivery fee</li>
+                        <li>Grand total</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>All Fields Required:</strong> You must fill in:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>✓ All shipping information (name, email, phone, address)</li>
+                        <li>✓ A delivery zone (required!)</li>
+                        <li>✓ A payment method (required!)</li>
+                    </ul>
+                    If you miss anything, you'll get a friendly reminder.
+                </li>
+                <li>
+                    <strong>Click "Place Order":</strong> The big blue button at the bottom. This submits your order.
+                </li>
+                <li>
+                    <strong>Wait for Confirmation:</strong> The page will process for 1-2 seconds, then you'll see a confirmation page.
+                </li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Don't refresh the page during checkout - wait for the confirmation to appear!
+            </div>
+        </div>
+
+        <!-- Order Confirmation -->
+        <div class="detailed-section">
+            <h2>✨ Step 6: Order Confirmation</h2>
+            <ul class="detailed-steps">
+                <li>
+                    <strong>Confirmation Screen:</strong> You'll see a page that shows:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>✅ Big green checkmark (your order is confirmed!)</li>
+                        <li>Your unique order number (save this!)</li>
+                        <li>Delivery address and zone</li>
+                        <li>Estimated delivery time</li>
+                        <li>Payment method</li>
+                        <li>Order total</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Next Steps Based on Payment Method:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>M-Pesa/Airtel/Card/Bank:</strong> You'll receive payment instructions via email. Follow them to pay.</li>
+                        <li><strong>Cash on Delivery:</strong> No payment needed now. Prepare cash for when driver arrives.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>What Happens Next:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>📧 Email confirmation sent with order details</li>
+                        <li>📱 SMS to your phone with delivery zone and time frame</li>
+                        <li>🚚 Driver arrives within estimated time window</li>
+                        <li>🔔 You might receive a call 5 minutes before arrival</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Click "Back to Home":</strong> When ready, return to shopping or go home. Your cart will be empty (ready for next order).
+                </li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Save your order number! If there are any questions about delivery, mention this number.
+            </div>
+        </div>
+
+        <!-- Quick Tips -->
+        <div class="quick-tips">
+            <h3>⚡ Quick Tips for Success</h3>
+            <ul>
+                <li>✓ Use your real phone number - we call 5 minutes before delivery</li>
+                <li>✓ Enter your exact address - apartment/flat/complex names help!</li>
+                <li>✓ Select the correct delivery zone - it affects your fee and time</li>
+                <li>✓ For M-Pesa/Airtel, check your email for payment links quickly</li>
+                <li>✓ Cash on Delivery → Have exact change ready</li>
+                <li>✓ During peak hours (lunch/dinner), delivery might take longer</li>
+                <li>✓ Bad weather? We still deliver but might take extra time</li>
+                <li>✓ Your cart is saved - you can shop again anytime!</li>
+            </ul>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-section">
+            <div class="detailed-section">
+                <h2>❓ Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>💰 Are the prices in Kenyan Shillings (KES)?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! All prices are in KES (Kenyan Shillings). The total you see is what you pay (plus delivery fee, minus any promotions).
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>🚚 What if my area isn't listed in the zones?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        All zones cover different parts of Nairobi. If you're unsure which zone you belong to, contact us on WhatsApp: +254 700 123 456 or email: info@freshbite.co.ke. We'll help you find the right zone!
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>⏰ What are your delivery hours?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We deliver Monday-Friday from 10:00 AM to 7:00 PM, and Saturday-Sunday from 11:00 AM to 6:00 PM. Sunday deliveries are limited. Orders placed after closing hours will be delivered the next business day.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>💳 Which payment methods are safest?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        All our payment methods are safe! M-Pesa and Airtel Money are very popular and secure in Kenya. If you prefer not to pay online, choose "Cash on Delivery" - pay when your delivery arrives. No online payment needed!
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>📦 Can I modify my order after placing it?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Contact us within 5 minutes of placing your order. If we haven't started preparing it, we can modify it. Call or WhatsApp: +254 700 123 456.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>🚫 What if my order doesn't arrive on time?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Our estimated times are usually accurate, but traffic and weather can affect delivery. We'll try to call you if we're running late. If you don't receive your order within 30 minutes of the estimated window, contact us immediately!
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>🤔 Can I place an order for someone else?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! Enter their delivery address, phone number, and email. We'll send them the confirmation. The driver will deliver to that address.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>♻️ Are cookies and fruits fresh?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! Our cookies are homemade fresh daily. Fruits are sourced fresh from markets daily. We only deliver items at peak freshness - this is guaranteed!
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>🎁 Do you offer gifts or special orders?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! For special requests like gift packaging, custom quantities, or bulk orders, contact us at info@freshbite.co.ke or WhatsApp: +254 700 123 456.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Support -->
+        <div class="detailed-section" style="background: linear-gradient(135deg, #FFF8E7 0%, #FFE8D0 100%); border: 2px solid #FF9F43;">
+            <h2>📞 Need Help?</h2>
+            <p style="margin-bottom: 20px; font-size: 1.05em; color: #333;">We're here to help! Contact us anytime:</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 2em; margin-bottom: 10px;">📱</div>
+                    <strong style="color: #8B4513; display: block; margin-bottom: 5px;">WhatsApp</strong>
+                    <a href="https://wa.me/254700123456" style="color: #FF9F43; text-decoration: none; font-weight: bold;">+254 700 123 456</a>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 2em; margin-bottom: 10px;">📧</div>
+                    <strong style="color: #8B4513; display: block; margin-bottom: 5px;">Email</strong>
+                    <a href="mailto:info@freshbite.co.ke" style="color: #FF9F43; text-decoration: none; font-weight: bold;">info@freshbite.co.ke</a>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 2em; margin-bottom: 10px;">📍</div>
+                    <strong style="color: #8B4513; display: block; margin-bottom: 5px;">Visit Us</strong>
+                    <p style="margin: 0; color: #666;">Shop 7, Westlands Plaza<br>Nairobi, Kenya</p>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🕐</div>
+                    <strong style="color: #8B4513; display: block; margin-bottom: 5px;">Hours</strong>
+                    <p style="margin: 0; color: #666;">Mon-Fri: 10AM - 7PM<br>Sat-Sun: 11AM - 6PM</p>
+                </div>
+            </div>
+
+            <a href="contact.html" class="cta-button" style="display: block; text-align: center; max-width: 200px; margin: 30px auto 0;">
+                Contact Us → 
+            </a>
+        </div>
+
+        <!-- Ready to Order CTA -->
+        <div style="text-align: center; padding: 50px 20px; background: white;">
+            <h2 style="color: #8B4513; margin-bottom: 20px; font-size: 1.8em;">Ready to Order?</h2>
+            <p style="color: #666; margin-bottom: 30px; font-size: 1.05em;">Start browsing our delicious cookies and fresh fruits today!</p>
+            <a href="products.html" class="cta-button" style="background: #6FCF97; font-size: 1.1em; padding: 18px 45px;">
+                🛍️ Shop Now
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FreshBite Cookies & Fruits. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="contact.html">Contact</a>
+                <a href="how-to-order.html">How to Order</a>
+                <a href="social-content.html">Follow Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                if (ans !== answer) {
+                    ans.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.faq-toggle').forEach(tog => {
+                if (tog !== toggle) {
+                    tog.textContent = '+';
+                }
+            });
+            
+            // Toggle current FAQ
+            answer.classList.toggle('active');
+            toggle.textContent = answer.classList.contains('active') ? '−' : '+';
+        }
+    </script>
+</body>
+</html>

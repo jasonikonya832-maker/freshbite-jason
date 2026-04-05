@@ -1,0 +1,46 @@
+<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Monochrome Brown Version -->
+  
+  <!-- COOKIE (Left) -->
+  <circle cx="35" cy="35" r="28" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+  
+  <!-- Bite mark -->
+  <path d="M 58 20 Q 65 28 58 35 Q 65 42 58 50 Z" fill="white"/>
+  
+  <!-- Chocolate chips -->
+  <circle cx="25" cy="25" r="3.5" fill="#654321" opacity="0.6"/>
+  <circle cx="40" cy="20" r="2.5" fill="#654321" opacity="0.6"/>
+  <circle cx="45" cy="35" r="3" fill="#654321" opacity="0.6"/>
+  <circle cx="38" cy="48" r="2.8" fill="#654321" opacity="0.6"/>
+  <circle cx="22" cy="42" r="3.2" fill="#654321" opacity="0.6"/>
+  <circle cx="30" cy="38" r="2.5" fill="#654321" opacity="0.6"/>
+  
+  <!-- ORANGE/FRUIT (Right) -->
+  <circle cx="85" cy="35" r="28" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+  
+  <!-- Fruit segments detail -->
+  <circle cx="85" cy="35" r="26" fill="none" stroke="#654321" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Segment lines -->
+  <line x1="85" y1="9" x2="85" y2="61" stroke="#654321" stroke-width="1" opacity="0.3"/>
+  <line x1="57" y1="35" x2="113" y2="35" stroke="#654321" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Highlight area -->
+  <circle cx="75" cy="22" r="6" fill="white" opacity="0.15"/>
+  
+  <!-- CONNECTING ELEMENT (Leaf) -->
+  <g transform="translate(60, 15) rotate(-25)">
+    <ellipse cx="0" cy="0" rx="8" ry="4" fill="#8B4513" stroke="#654321" stroke-width="1.5"/>
+    <path d="M 0 -4 Q 3 -2 3 0 Q 3 2 0 4" fill="none" stroke="#654321" stroke-width="0.8"/>
+  </g>
+  
+  <!-- TEXT: "FreshBite" -->
+  <text x="130" y="50" font-family="'Arial', sans-serif" font-size="32" font-weight="700" fill="#654321" letter-spacing="0.5">
+    FreshBite
+  </text>
+  
+  <!-- Tagline -->
+  <text x="130" y="68" font-family="'Arial', sans-serif" font-size="10" font-weight="400" fill="#654321" opacity="0.6" letter-spacing="0.8">
+    COOKIES &amp; FRUITS
+  </text>
+</svg>

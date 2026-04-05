@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Content - FreshBite Cookies & Fruits</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .social-post {
+      background-color: white;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--primary-orange);
+    }
+
+    .post-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-brown);
+    }
+
+    .post-platform {
+      display: inline-block;
+      background-color: var(--primary-orange);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .post-content {
+      background-color: var(--light-bg);
+      padding: 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-dark);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .post-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .copy-btn {
+      background-color: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .copy-btn:hover {
+      background-color: #5BB87F;
+    }
+
+    .hashtags {
+      background-color: #E3F2FD;
+      padding: 1rem;
+      border-left: 4px solid #2196F3;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #1565C0;
+    }
+
+    .tips-section {
+      background-color: #FFF3E0;
+      padding: 2rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+      border-left: 5px solid var(--primary-orange);
+    }
+
+    .tips-section h3 {
+      color: var(--primary-brown);
+      margin-top: 0;
+    }
+
+    .best-times {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .time-slot {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 2px solid var(--border-color);
+    }
+
+    .time-slot strong {
+      color: var(--primary-orange);
+    }
+
+    .time-slot p {
+      margin: 0.5rem 0 0 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .comparison-table th {
+      background-color: var(--primary-orange);
+      color: white;
+      font-weight: 600;
+    }
+
+    .comparison-table tr:hover {
+      background-color: var(--light-bg);
+    }
+
+    .container-marketing {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .page-intro {
+      background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-green) 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .page-intro h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2rem;
+    }
+
+    .page-intro p {
+      margin: 0;
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo"><img src="logo.svg" alt="FreshBite" style="height: 50px; width: auto;"></a>
+      <button class="menu-toggle">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="how-to-order.html">How to Order</a></li>
+        <li class="cart-icon" onclick="window.location.href='cart.html'">
+          🛒
+          <span class="cart-count" style="display: none;">0</span>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- PAGE INTRO -->
+  <div class="page-intro">
+    <h1>📱 Social Media Content Hub</h1>
+    <p>Ready-to-use posts to promote FreshBite across all platforms</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container-marketing">
+    <!-- POST 1 -->
+    <div class="social-post">
+      <div class="post-header">
+        <div>
+          <h3 class="post-title">Post Option 1: Fresh & Exciting</h3>
+          <span class="post-platform">Instagram / Facebook</span>
+        </div>
+      </div>
+
+      <div class="post-content">🍪 **CRAVING SOMETHING FRESH?** 🍎
+
+Get ready to taste the difference! 😋 Our homemade cookies are baked FRESH daily with premium ingredients, and our fruits? Hand-picked at peak ripeness straight from Nairobi's finest farms! 
+
+✨ Crispy cookies, juicy fruits, zero compromises ✨
+
+🛒 **Order NOW** → Link in bio 
+📞 WhatsApp us on +254 700 000 000
+🚚 Fast delivery across Nairobi!
+
+Don't miss out! 🌟 #FreshBite #NairobiEats #FreshCookies</div>
+
+      <div class="post-meta">
+        <span>📍 Best for: Instagram Feed, Facebook</span>
+        <span>⏰ Best time: 2-3 PM</span>
+      </div>
+      <button class="copy-btn" onclick="copyPost(1)">📋 Copy Post</button>
+    </div>
+
+    <!-- POST 2 -->
+    <div class="social-post">
+      <div class="post-header">
+        <div>
+          <h3 class="post-title">Post Option 2: Short & Punchy</h3>
+          <span class="post-platform">Twitter / X</span>
+        </div>
+      </div>
+
+      <div class="post-content">🎉 **FRESH ALERT!** 🎉
+
+Homemade chocolate chip cookies 🍪 + Farm-fresh fruits 🍊 = Pure happiness! 
+
+Made fresh daily. Nothing artificial. Just DELICIOUS. 💚
+
+**Order TODAY!** DM or WhatsApp +254 700 000 000 👇
+
+#FreshBite #HomemadeCookies #FreshFruits #NairobiDelivery #FreshBiteCookies</div>
+
+      <div class="post-meta">
+        <span>📍 Best for: Twitter, Quick Posts</span>
+        <span>⏰ Best time: 9-10 AM</span>
+      </div>
+      <button class="copy-btn" onclick="copyPost(2)">📋 Copy Post</button>
+    </div>
+
+    <!-- POST 3 -->
+    <div class="social-post">
+      <div class="post-header">
+        <div>
+          <h3 class="post-title">Post Option 3: Storytelling Style</h3>
+          <span class="post-platform">Instagram / LinkedIn</span>
+        </div>
+      </div>
+
+      <div class="post-content">Your mom would be proud! 👩‍🍳
+
+Our cookies taste homemade because they ARE homemade. 🍪✨ Baked fresh DAILY with love and premium ingredients. And our fruits? So fresh, they practically jumped into our delivery box! 🍓🥭
+
+Taste the difference quality makes! 
+
+🛒 **Order Now:** www.freshbite.co.ke
+💬 **WhatsApp:** +254 700 000 000
+🚚 **Same-day delivery in Nairobi**
+
+Which flavor are you craving? Tell us below! 👇 #FreshBite</div>
+
+      <div class="post-meta">
+        <span>📍 Best for: Storytelling, Audience Building</span>
+        <span>⏰ Best time: 6-7 PM</span>
+      </div>
+      <button class="copy-btn" onclick="copyPost(3)">📋 Copy Post</button>
+    </div>
+
+    <!-- POST 4 -->
+    <div class="social-post">
+      <div class="post-header">
+        <div>
+          <h3 class="post-title">Post Option 4: Fun & Playful</h3>
+          <span class="post-platform">TikTok / Reels</span>
+        </div>
+      </div>
+
+      <div class="post-content">⚠️ **WARNING** ⚠️
+Our cookies are SO good, you might order again tomorrow! 😅
+
+🍪 Homemade chocolate chip cookies - Crispy outside, chewy inside = PERFECTION
+🍎 Fresh fruits - So fresh, so juicy, so healthy
+🌿 Premium ingredients - No shortcuts, no artificial stuff
+
+Ready to upgrade your snack game? 🚀
+
+📱 **Order Now!** Link in bio or WhatsApp +254 700 000 000
+
+Who's IN? React with 🍪 if you're a cookie lover! #FreshBite #Nairobi #HealthySnacking</div>
+
+      <div class="post-meta">
+        <span>📍 Best for: Younger Audience, Engagement</span>
+        <span>⏰ Best time: 2-4 PM</span>
+      </div>
+      <button class="copy-btn" onclick="copyPost(4)">📋 Copy Post</button>
+    </div>
+
+    <!-- POST 5 -->
+    <div class="social-post">
+      <div class="post-header">
+        <div>
+          <h3 class="post-title">Post Option 5: Instagram Stories Series</h3>
+          <span class="post-platform">Instagram Stories</span>
+        </div>
+      </div>
+
+      <div class="post-content">**Story 1:** 🍪 Fresh cookies just came OUT OF THE OVEN! 
+(Video of cookies cooling)
+
+**Story 2:** 🍎 Handpicked fruits at PEAK ripeness!
+(Carousel of fruit emojis)
+
+**Story 3:** 💚 Trust FreshBite for quality
+(Show testimonial or customer review)
+
+**Story 4:** 🛒 **ORDER NOW!** 
+Link → bio or WhatsApp +254 700 000 000
+(Call to action with swipe-up link)</div>
+
+      <div class="post-meta">
+        <span>📍 Best for: Visual Storytelling</span>
+        <span>⏰ Best time: 9-10 AM or 2-3 PM</span>
+      </div>
+      <button class="copy-btn" onclick="copyPost(5)">📋 Copy Post</button>
+    </div>
+
+    <!-- POST 6 -->
+    <div class="social-post">
+      <div class="post-header">
+        <div>
+          <h3 class="post-title">Post Option 6: Carousel Post</h3>
+          <span class="post-platform">Instagram / LinkedIn</span>
+        </div>
+      </div>
+
+      <div class="post-content">**Slide 1:** 🍪 HOMEMADE COOKIES
+Baked fresh daily with premium chocolate chips!
+
+**Slide 2:** 🍎 FARM-FRESH FRUITS
+Handpicked from the best farms around Nairobi
+
+**Slide 3:** 💚 QUALITY GUARANTEED
+No artificial ingredients, just pure goodness
+
+**Slide 4:** 🚚 FAST DELIVERY
+Order today, delivered same-day in Nairobi!
+
+**Slide 5:** 🛒 ORDER NOW!
+WhatsApp: +254 700 000 000
+Shop: freshbite.co.ke</div>
+
+      <div class="post-meta">
+        <span>📍 Best for: Showcasing Multiple Products</span>
+        <span>⏰ Best time: 9-10 AM</span>
+      </div>
+      <button class="copy-btn" onclick="copyPost(6)">📋 Copy Post</button>
+    </div>
+
+    <!-- TIPS SECTION -->
+    <div class="tips-section">
+      <h3>💡 Pro Tips for Maximum Engagement</h3>
+      
+      <h4>Best Times to Post:</h4>
+      <div class="best-times">
+        <div class="time-slot">
+          <strong>9-10 AM</strong>
+          <p>Breakfast cravings & morning planning</p>
+        </div>
+        <div class="time-slot">
+          <strong>2-3 PM</strong>
+          <p>Afternoon snack time boost</p>
+        </div>
+        <div class="time-slot">
+          <strong>6-7 PM</strong>
+          <p>Evening relaxation & dinner prep</p>
+        </div>
+      </div>
+
+      <h4>Hashtags to Use:</h4>
+      <div class="hashtags">
+        #FreshBite #NairobiFood #HomemadeCookies #FreshFruits #HealthySnacking #NairobiEats #LocalBusiness #FarmFresh #SupportLocal #NairobiDelivery #FreshBiteCookies #CookieLover #FruitLover #LocalNairobi #DeliveryServices #FreshBaked #OrganicFruit #HomemadeGoodness
+      </div>
+
+      <h4>Engagement Boosters:</h4>
+      <ul>
+        <li>✅ Ask questions ("Which flavor?", "Sweet or savory?")</li>
+        <li>✅ Use polls in Instagram Stories</li>
+        <li>✅ Tag food bloggers & influencers</li>
+        <li>✅ Share customer photos & reviews</li>
+        <li>✅ Post behind-the-scenes baking videos</li>
+        <li>✅ Respond to comments within 1 hour</li>
+        <li>✅ Use trending audio on TikTok/Reels</li>
+        <li>✅ Create limited-time offers for followers</li>
+      </ul>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div style="background-color: white; padding: 2rem; border-radius: 10px; border: 2px solid var(--border-color);">
+      <h3 style="color: var(--primary-brown); margin-top: 0;">Quick Reference: Post Comparison</h3>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Best For</th>
+            <th>Tone</th>
+            <th>Platforms</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Option 1</strong></td>
+            <td>Standard Promotion</td>
+            <td>Friendly, Enthusiastic</td>
+            <td>Instagram, Facebook</td>
+          </tr>
+          <tr>
+            <td><strong>Option 2</strong></td>
+            <td>Quick Messaging</td>
+            <td>Punchy, Direct</td>
+            <td>Twitter, Quick Posts</td>
+          </tr>
+          <tr>
+            <td><strong>Option 3</strong></td>
+            <td>Building Connection</td>
+            <td>Warm, Relatable</td>
+            <td>Instagram, LinkedIn</td>
+          </tr>
+          <tr>
+            <td><strong>Option 4</strong></td>
+            <td>Younger Audience</td>
+            <td>Fun, Playful</td>
+            <td>TikTok, Reels</td>
+          </tr>
+          <tr>
+            <td><strong>Option 5</strong></td>
+            <td>Visual Storytelling</td>
+            <td>Engaging, Sequential</td>
+            <td>Instagram Stories</td>
+          </tr>
+          <tr>
+            <td><strong>Option 6</strong></td>
+            <td>Detailed Overview</td>
+            <td>Professional, Informative</td>
+            <td>LinkedIn, Carousel</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CALL TO ACTION -->
+    <div style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-orange) 100%); color: white; padding: 2rem; border-radius: 10px; text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
+      <h3>Ready to Start Posting? 🚀</h3>
+      <p>Pick your favorite post, customize it, and share it with your followers!</p>
+      <a href="contact.html" class="btn" style="background-color: white; color: var(--primary-brown); margin-top: 1rem;">Contact Us for Support</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>FreshBite</h3>
+        <p>Your trusted source for delicious cookies and fresh fruits in Nairobi.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Customer Service</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FreshBite Cookies & Fruits. All rights reserved. | Nairobi, Kenya</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    function copyPost(postNumber) {
+      const posts = {
+        1: `🍪 **CRAVING SOMETHING FRESH?** 🍎
+
+Get ready to taste the difference! 😋 Our homemade cookies are baked FRESH daily with premium ingredients, and our fruits? Hand-picked at peak ripeness straight from Nairobi's finest farms! 
+
+✨ Crispy cookies, juicy fruits, zero compromises ✨
+
+🛒 **Order NOW** → Link in bio 
+📞 WhatsApp us on +254 700 000 000
+🚚 Fast delivery across Nairobi!
+
+Don't miss out! 🌟 #FreshBite #NairobiEats #FreshCookies`,
+
+        2: `🎉 **FRESH ALERT!** 🎉
+
+Homemade chocolate chip cookies 🍪 + Farm-fresh fruits 🍊 = Pure happiness! 
+
+Made fresh daily. Nothing artificial. Just DELICIOUS. 💚
+
+**Order TODAY!** DM or WhatsApp +254 700 000 000 👇
+
+#FreshBite #HomemadeCookies #FreshFruits #NairobiDelivery #FreshBiteCookies`,
+
+        3: `Your mom would be proud! 👩‍🍳
+
+Our cookies taste homemade because they ARE homemade. 🍪✨ Baked fresh DAILY with love and premium ingredients. And our fruits? So fresh, they practically jumped into our delivery box! 🍓🥭
+
+Taste the difference quality makes! 
+
+🛒 **Order Now:** www.freshbite.co.ke
+💬 **WhatsApp:** +254 700 000 000
+🚚 **Same-day delivery in Nairobi**
+
+Which flavor are you craving? Tell us below! 👇 #FreshBite`,
+
+        4: `⚠️ **WARNING** ⚠️
+Our cookies are SO good, you might order again tomorrow! 😅
+
+🍪 Homemade chocolate chip cookies - Crispy outside, chewy inside = PERFECTION
+🍎 Fresh fruits - So fresh, so juicy, so healthy
+🌿 Premium ingredients - No shortcuts, no artificial stuff
+
+Ready to upgrade your snack game? 🚀
+
+📱 **Order Now!** Link in bio or WhatsApp +254 700 000 000
+
+Who's IN? React with 🍪 if you're a cookie lover! #FreshBite #Nairobi #HealthySnacking`,
+
+        5: `**Story 1:** 🍪 Fresh cookies just came OUT OF THE OVEN! 
+**Story 2:** 🍎 Handpicked fruits at PEAK ripeness!
+**Story 3:** 💚 Trust FreshBite for quality
+**Story 4:** 🛒 **ORDER NOW!** WhatsApp +254 700 000 000`,
+
+        6: `🍪 HOMEMADE COOKIES - Baked fresh daily
+🍎 FARM-FRESH FRUITS - Handpicked from finest farms
+💚 QUALITY GUARANTEED - No artificial ingredients
+🚚 FAST DELIVERY - Same-day in Nairobi
+🛒 ORDER NOW! WhatsApp: +254 700 000 000`
+      };
+
+      const text = posts[postNumber];
+      navigator.clipboard.writeText(text).then(() => {
+        alert('✅ Post copied to clipboard! Ready to paste on social media.');
+      }).catch(() => {
+        alert('Please manually copy the post text.');
+      });
+    }
+  </script>
+</body>
+</html>

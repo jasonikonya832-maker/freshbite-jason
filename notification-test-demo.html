@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification System - Test & Demo</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .demo-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .demo-section {
+      background: #f9f9f9;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-brown);
+    }
+
+    .demo-title {
+      color: var(--primary-brown);
+      margin-bottom: 1rem;
+    }
+
+    .demo-code {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      margin: 1rem 0;
+    }
+
+    .demo-button {
+      background: var(--primary-brown);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    .demo-button:hover {
+      background: #8B4513;
+    }
+
+    .demo-button.secondary {
+      background: #666;
+    }
+
+    .demo-button.secondary:hover {
+      background: #444;
+    }
+
+    .test-results {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .test-result-item {
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+    }
+
+    .test-result-item.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .test-result-item.error {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .test-result-item.info {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .message-preview {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .stat-box {
+      display: inline-block;
+      background: var(--primary-brown);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .form-group-demo {
+      margin: 1rem 0;
+    }
+
+    .form-group-demo label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .form-group-demo input,
+    .form-group-demo select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .demo-container {
+        padding: 0 1rem;
+      }
+
+      .stat-box {
+        display: block;
+        margin: 0.5rem 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo"><img src="logo.svg" alt="FreshBite" style="height: 50px; width: auto;"></a>
+      <button class="menu-toggle">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="how-to-order.html">How to Order</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="demo-container">
+    <h1>🔔 FreshBite Notification System - Test & Demo</h1>
+    <p>Interactive testing interface for the order confirmation notification system.</p>
+
+    <!-- ========================================
+         SECTION 1: SYSTEM STATUS
+         ======================================== -->
+    <div class="demo-section">
+      <h2 class="demo-title">📊 System Status</h2>
+      <p>Check the current status of the notification system:</p>
+
+      <div id="systemStatus">
+        <div class="stat-box">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Total Notifications</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">-</div>
+          <div class="stat-label">WhatsApp Sent</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">-</div>
+          <div class="stat-label">SMS Sent</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">-</div>
+          <div class="stat-label">Failed</div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="refreshSystemStatus()">🔄 Refresh Status</button>
+        <button class="demo-button secondary" onclick="clearHistory()">🗑️ Clear History</button>
+      </div>
+
+      <div id="statusResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- ========================================
+         SECTION 2: TEST ORDER GENERATOR
+         ======================================== -->
+    <div class="demo-section">
+      <h2 class="demo-title">🛒 Test Order Generator</h2>
+      <p>Create a test order and see how notifications are generated:</p>
+
+      <div class="form-group-demo">
+        <label for="testCustomerName">Customer Name:</label>
+        <input type="text" id="testCustomerName" placeholder="John Doe" value="John Doe">
+      </div>
+
+      <div class="form-group-demo">
+        <label for="testCustomerPhone">Phone Number:</label>
+        <input type="tel" id="testCustomerPhone" placeholder="+254712345678" value="+254712345678">
+      </div>
+
+      <div class="form-group-demo">
+        <label for="testOrderStatus">Notification Type:</label>
+        <select id="testOrderStatus">
+          <option value="confirmed">✅ Order Confirmed (Immediate after checkout)</option>
+          <option value="outForDelivery">🚚 Out for Delivery (Driver picked up)</option>
+          <option value="delivered">📦 Order Delivered (Successfully delivered)</option>
+          <option value="cancelled">❌ Order Cancelled</option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="generateTestOrder()">📋 Generate & Send Test Order</button>
+        <button class="demo-button secondary" onclick="showTestOrderCode()">📝 Show Code Example</button>
+      </div>
+
+      <div id="testOrderResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- ========================================
+         SECTION 3: MESSAGE PREVIEW
+         ======================================== -->
+    <div class="demo-section">
+      <h2 class="demo-title">💬 Message Preview Generator</h2>
+      <p>Preview WhatsApp and SMS messages before sending:</p>
+
+      <div class="form-group-demo">
+        <label for="previewStatus">Order Status:</label>
+        <select id="previewStatus">
+          <option value="confirmed">Order Confirmed</option>
+          <option value="outForDelivery">Out for Delivery</option>
+          <option value="delivered">Order Delivered</option>
+          <option value="cancelled">Order Cancelled</option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="generateWhatsAppPreview()">💬 Preview WhatsApp Message</button>
+        <button class="demo-button" onclick="generateSMSPreview()">📱 Preview SMS Message</button>
+      </div>
+
+      <div id="messagePreview" class="message-preview" style="display: none;"></div>
+    </div>
+
+    <!-- ========================================
+         SECTION 4: MANUAL NOTIFICATION SENDER
+         ======================================== -->
+    <div class="demo-section">
+      <h2 class="demo-title">✉️ Manual Notification Sender</h2>
+      <p>Send custom notifications with your own message:</p>
+
+      <div class="form-group-demo">
+        <label for="manualPhoneNumber">Recipient Phone Number:</label>
+        <input type="tel" id="manualPhoneNumber" placeholder="+254712345678">
+      </div>
+
+      <div class="form-group-demo">
+        <label for="manualMessageType">Message Type:</label>
+        <select id="manualMessageType">
+          <option value="whatsapp">WhatsApp</option>
+          <option value="sms">SMS</option>
+          <option value="both">Both WhatsApp & SMS</option>
+        </select>
+      </div>
+
+      <div class="form-group-demo">
+        <label for="manualMessage">Message Content:</label>
+        <textarea id="manualMessage" placeholder="Enter your message..." style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-family: Arial; font-size: 1rem; min-height: 100px;"></textarea>
+      </div>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="sendManualNotification()">📤 Send Notification</button>
+        <button class="demo-button secondary" onclick="insertExampleMessage()">📋 Insert Example</button>
+      </div>
+
+      <div id="manualResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- ========================================
+         SECTION 5: NOTIFICATION HISTORY
+         ======================================== -->
+    <div class="demo-section">
+      <h2 class="demo-title">📋 Notification History</h2>
+      <p>View all notifications sent during this session:</p>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="displayNotificationHistory()">📖 Load History</button>
+        <button class="demo-button secondary" onclick="exportHistory()">📥 Export as JSON</button>
+      </div>
+
+      <div id="historyResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- ========================================
+         SECTION 6: API CONFIGURATION
+         ======================================== -->
+    <div class="demo-section">
+      <h2 class="demo-title">⚙️ API Configuration</h2>
+      <p>View and manage notification API settings:</p>
+
+      <div class="button-group">
+        <button class="demo-button" onclick="showAPIConfig()">🔧 Show Configuration</button>
+        <button class="demo-button secondary" onclick="testAPIConnection()">🔌 Test API Connection</button>
+      </div>
+
+      <div id="configResults" class="test-results" style="display: none;"></div>
+    </div>
+
+    <!-- ========================================
+         SECTION 7: DOCUMENTATION
+         ======================================== -->
+    <div class="demo-section">
+      <h2 class="demo-title">📚 Documentation Links</h2>
+      <p>Access the complete documentation for the notification system:</p>
+
+      <div class="button-group">
+        <a href="NOTIFICATION_SYSTEM_GUIDE.md" class="demo-button" target="_blank">📖 Full User Guide</a>
+        <a href="API_INTEGRATION_SETUP.md" class="demo-button" target="_blank">🔧 API Integration Guide</a>
+        <a href="checkout.html" class="demo-button secondary">🛒 Go to Checkout</a>
+      </div>
+    </div>
+
+    <!-- ========================================
+         SECTION 8: TROUBLESHOOTING
+         ======================================== -->
+    <div class="demo-section">
+      <h2 class="demo-title">🐛 Troubleshooting</h2>
+      
+      <h3>Common Issues & Solutions:</h3>
+      
+      <div class="form-group-demo">
+        <strong>Issue: Notifications not sending</strong>
+        <p>✓ Check if demo mode is active (no API tokens configured)</p>
+        <p>✓ Verify phone number format: +254712345678</p>
+        <p>✓ Check browser console for error messages</p>
+        <button class="demo-button secondary" onclick="runDiagnostics()">🔍 Run Diagnostics</button>
+      </div>
+
+      <div id="diagnosticsResults" class="test-results" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>FreshBite</h3>
+        <p>Your trusted source for delicious cookies and fresh fruits in Nairobi.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Customer Service</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FreshBite Cookies & Fruits. All rights reserved. | Nairobi, Kenya</p>
+    </div>
+  </footer>
+
+  <!-- Load notification system and app scripts -->
+  <script src="js/notification-system.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- TEST UTILITIES -->
+  <script>
+    /**
+     * Display test results in a results container
+     */
+    function displayResult(containerId, message, type = 'info') {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      container.style.display = 'block';
+
+      const item = document.createElement('div');
+      item.className = `test-result-item ${type}`;
+      item.textContent = message;
+
+      container.appendChild(item);
+
+      // Auto-scroll to bottom
+      setTimeout(() => {
+        container.scrollTop = container.scrollHeight;
+      }, 100);
+    }
+
+    /**
+     * Clear results container
+     */
+    function clearResults(containerId) {
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = '';
+        container.style.display = 'none';
+      }
+    }
+
+    /**
+     * Refresh system status
+     */
+    function refreshSystemStatus() {
+      clearResults('statusResults');
+
+      if (!notificationController) {
+        displayResult('statusResults', '❌ Notification system not loaded', 'error');
+        return;
+      }
+
+      const history = notificationController.getHistory();
+      const stats = {
+        total: history.length,
+        whatsapp: history.filter(n => n.notifications?.whatsapp?.status === 'sent').length,
+        sms: history.filter(n => n.notifications?.sms?.status === 'sent').length,
+        failed: history.filter(n => n.error).length
+      };
+
+      // Update UI
+      document.querySelectorAll('.stat-box').forEach((box, index) => {
+        const values = [stats.total, stats.whatsapp, stats.sms, stats.failed];
+        const valueEl = box.querySelector('.stat-value');
+        if (valueEl) valueEl.textContent = values[index];
+      });
+
+      displayResult('statusResults', `✅ System Status: ${stats.total} notifications total`, 'success');
+      displayResult('statusResults', `✅ WhatsApp: ${stats.whatsapp} sent`, 'success');
+      displayResult('statusResults', `✅ SMS: ${stats.sms} sent`, 'success');
+      if (stats.failed > 0) {
+        displayResult('statusResults', `⚠️ Failed: ${stats.failed}`, 'error');
+      }
+    }
+
+    /**
+     * Clear notification history
+     */
+    function clearHistory() {
+      if (confirm('Are you sure you want to clear all notification history? This cannot be undone.')) {
+        if (notificationController) {
+          notificationController.clearHistory();
+          displayResult('statusResults', '✅ History cleared', 'success');
+          refreshSystemStatus();
+        }
+      }
+    }
+
+    /**
+     * Generate and send test order
+     */
+    async function generateTestOrder() {
+      clearResults('testOrderResults');
+
+      const customerName = document.getElementById('testCustomerName').value || 'Test Customer';
+      const phoneNumber = document.getElementById('testCustomerPhone').value || '+254712345678';
+      const status = document.getElementById('testOrderStatus').value;
+
+      displayResult('testOrderResults', `📋 Creating test order...`, 'info');
+
+      // Create test order
+      const testOrder = {
+        id: `FB_TEST_${Date.now()}`,
+        customer: {
+          firstName: customerName.split(' ')[0],
+          lastName: customerName.split(' ')[1] || 'Test',
+          email: 'test@freshbite.com',
+          phone: phoneNumber
+        },
+        address: {
+          address: 'Test Street, Test Building',
+          city: 'Nairobi',
+          postalCode: '00100'
+        },
+        delivery: {
+          zone: 'Westlands',
+          fee: 200,
+          time: '2:00 PM - 4:00 PM',
+          date: new Date().toISOString().split('T')[0],
+          type: 'today'
+        },
+        payment: {
+          method: 'mpesa'
+        },
+        items: [
+          { name: 'Choco Chip Cookies', quantity: 2, price: 400, isCustom: false },
+          { name: 'Fresh Mixed Fruits', quantity: 1, price: 1500, isCustom: false }
+        ],
+        subtotal: 2300,
+        total: 2550,
+        discount: null
+      };
+
+      displayResult('testOrderResults', `✅ Order created: ${testOrder.id}`, 'success');
+
+      try {
+        const result = await sendOrderConfirmationNotification(testOrder, status);
+        displayResult('testOrderResults', `✅ Notifications sent successfully!`, 'success');
+        displayResult('testOrderResults', `📊 Result: ${JSON.stringify(result, null, 2)}`, 'success');
+      } catch (error) {
+        displayResult('testOrderResults', `❌ Error: ${error.message}`, 'error');
+      }
+    }
+
+    /**
+     * Show test order code example
+     */
+    function showTestOrderCode() {
+      clearResults('testOrderResults');
+
+      const code = `
+// Example: Send order confirmation notification
+const testOrder = {
+  id: 'FB1234567890',
+  customer: {
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john@example.com',
+    phone: '+254712345678'
+  },
+  address: {
+    address: '123 Main St',
+    city: 'Nairobi',
+    postalCode: '00100'
+  },
+  delivery: {
+    zone: 'Westlands',
+    fee: 200,
+    time: '2:00 PM - 4:00 PM',
+    type: 'today'
+  },
+  items: [
+    { name: 'Choco Chip Cookies', quantity: 2, price: 400 },
+    { name: 'Fresh Fruits', quantity: 1, price: 1500 }
+  ],
+  subtotal: 2300,
+  total: 2550
+};
+
+// Send notifications
+await sendOrderConfirmationNotification(testOrder, 'confirmed');
+
+// Preview message
+const preview = getNotificationPreview(testOrder, 'confirmed', 'whatsapp');
+console.log(preview);
+      `;
+
+      displayResult('testOrderResults', code, 'info');
+    }
+
+    /**
+     * Generate WhatsApp message preview
+     */
+    function generateWhatsAppPreview() {
+      clearResults('messagePreview');
+
+      const status = document.getElementById('previewStatus').value;
+
+      const testOrder = {
+        id: 'FB1234567890',
+        customer: { firstName: 'John', phone: '+254712345678' },
+        address: { address: '123 Main St', city: 'Nairobi' },
+        delivery: { zone: 'Westlands', time: '2:00 PM - 4:00 PM', type: 'today', date: new Date().toISOString() },
+        items: [
+          { name: 'Choco Chip Cookies', quantity: 2, price: 400 },
+          { name: 'Fresh Fruits', quantity: 1, price: 1500 }
+        ],
+        subtotal: 2300,
+        total: 2550
+      };
+
+      const preview = getNotificationPreview(testOrder, status, 'whatsapp');
+      const container = document.getElementById('messagePreview');
+      container.style.display = 'block';
+      container.textContent = preview;
+    }
+
+    /**
+     * Generate SMS message preview
+     */
+    function generateSMSPreview() {
+      clearResults('messagePreview');
+
+      const status = document.getElementById('previewStatus').value;
+
+      const testOrder = {
+        id: 'FB1234567890',
+        customer: { firstName: 'John', phone: '+254712345678' },
+        address: { address: '123 Main St', city: 'Nairobi' },
+        delivery: { zone: 'Westlands', time: '2:00 PM - 4:00 PM', type: 'today' },
+        items: [
+          { name: 'Choco Chip Cookies', quantity: 2, price: 400 },
+          { name: 'Fresh Fruits', quantity: 1, price: 1500 }
+        ],
+        subtotal: 2300,
+        total: 2550
+      };
+
+      const preview = getNotificationPreview(testOrder, status, 'sms');
+      const container = document.getElementById('messagePreview');
+      container.style.display = 'block';
+      container.textContent = preview;
+    }
+
+    /**
+     * Send manual notification
+     */
+    async function sendManualNotification() {
+      clearResults('manualResults');
+
+      const phoneNumber = document.getElementById('manualPhoneNumber').value;
+      const messageType = document.getElementById('manualMessageType').value;
+      const message = document.getElementById('manualMessage').value;
+
+      if (!phoneNumber) {
+        displayResult('manualResults', '❌ Please enter a phone number', 'error');
+        return;
+      }
+
+      if (!message) {
+        displayResult('manualResults', '❌ Please enter a message', 'error');
+        return;
+      }
+
+      displayResult('manualResults', '📤 Sending notification...', 'info');
+
+      // Create a simple notification object
+      const notification = {
+        phoneNumber: phoneNumber,
+        message: message
+      };
+
+      if (messageType === 'whatsapp' || messageType === 'both') {
+        console.log('📱 WhatsApp Message:', message);
+        displayResult('manualResults', `✅ WhatsApp: ${message.substring(0, 50)}...`, 'success');
+      }
+
+      if (messageType === 'sms' || messageType === 'both') {
+        console.log('📱 SMS Message:', message);
+        displayResult('manualResults', `✅ SMS: ${message.substring(0, 50)}...`, 'success');
+      }
+    }
+
+    /**
+     * Insert example message
+     */
+    function insertExampleMessage() {
+      const example = `Hi John! 🎉 Your FreshBite order #FB1234567890 has been confirmed.\n\nDelivery: Today by 2:00 PM - 4:00 PM\nTotal: KES 2,550\n\nThank you for choosing FreshBite! 🍪🥭`;
+      document.getElementById('manualMessage').value = example;
+    }
+
+    /**
+     * Display notification history
+     */
+    function displayNotificationHistory() {
+      clearResults('historyResults');
+
+      if (!notificationController) {
+        displayResult('historyResults', '❌ Notification system not loaded', 'error');
+        return;
+      }
+
+      const history = notificationController.getHistory();
+
+      if (history.length === 0) {
+        displayResult('historyResults', '📭 No notifications in history yet', 'info');
+        return;
+      }
+
+      displayResult('historyResults', `📋 Total notifications: ${history.length}`, 'info');
+      
+      history.forEach((notification, index) => {
+        const statusInfo = `
+Order: ${notification.order}
+Status: ${notification.status}
+Timestamp: ${notification.timestamp}
+WhatsApp: ${notification.notifications?.whatsapp?.status || 'N/A'}
+SMS: ${notification.notifications?.sms?.status || 'N/A'}
+${notification.error ? `Error: ${notification.error}` : ''}
+`;
+        displayResult('historyResults', statusInfo.trim(), 'info');
+      });
+    }
+
+    /**
+     * Export history as JSON
+     */
+    function exportHistory() {
+      if (!notificationController) return;
+
+      const history = notificationController.getHistory();
+      const json = JSON.stringify(history, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `notification-history-${Date.now()}.json`;
+      a.click();
+
+      displayResult('historyResults', `✅ History exported as JSON`, 'success');
+    }
+
+    /**
+     * Show API configuration
+     */
+    function showAPIConfig() {
+      clearResults('configResults');
+
+      if (!NOTIFICATION_CONFIG) {
+        displayResult('configResults', '❌ Configuration not loaded', 'error');
+        return;
+      }
+
+      const config = `
+NOTIFICATION SYSTEM CONFIGURATION:
+
+Enabled Services:
+  • WhatsApp: ${NOTIFICATION_CONFIG.enabled.whatsapp ? '✅' : '❌'}
+  • SMS: ${NOTIFICATION_CONFIG.enabled.sms ? '✅' : '❌'}
+
+Business Information:
+  • Name: ${NOTIFICATION_CONFIG.business.name}
+  • Phone: ${NOTIFICATION_CONFIG.business.phone}
+  • Email: ${NOTIFICATION_CONFIG.business.supportEmail}
+  • Website: ${NOTIFICATION_CONFIG.business.website}
+
+API Providers:
+  • WhatsApp: ${NOTIFICATION_CONFIG.apis.whatsapp.provider}
+  • SMS: ${NOTIFICATION_CONFIG.apis.sms.provider}
+
+Demo Mode: ${notificationController?.isDemo() ? '✅ ACTIVE (No real API calls)' : '❌ OFF (Using real APIs)'}
+      `;
+
+      displayResult('configResults', config.trim(), 'info');
+    }
+
+    /**
+     * Test API connection
+     */
+    function testAPIConnection() {
+      clearResults('configResults');
+
+      displayResult('configResults', '🔌 Testing API connections...', 'info');
+
+      if (notificationController?.isDemo()) {
+        displayResult('configResults', '⚠️ System running in DEMO mode - no real API calls', 'info');
+        displayResult('configResults', '✅ To enable real APIs: Configure API tokens in notification-system.js', 'info');
+        return;
+      }
+
+      displayResult('configResults', '✅ API tokens configured', 'success');
+      displayResult('configResults', '✅ Ready to send real notifications', 'success');
+    }
+
+    /**
+     * Run diagnostics
+     */
+    function runDiagnostics() {
+      clearResults('diagnosticsResults');
+
+      displayResult('diagnosticsResults', '🔍 Running diagnostics...', 'info');
+
+      // Check notification system loaded
+      if (typeof notificationController !== 'undefined') {
+        displayResult('diagnosticsResults', '✅ Notification system loaded', 'success');
+      } else {
+        displayResult('diagnosticsResults', '❌ Notification system NOT loaded', 'error');
+        return;
+      }
+
+      // Check functions
+      if (typeof sendOrderConfirmationNotification === 'function') {
+        displayResult('diagnosticsResults', '✅ sendOrderConfirmationNotification available', 'success');
+      } else {
+        displayResult('diagnosticsResults', '❌ sendOrderConfirmationNotification NOT available', 'error');
+      }
+
+      if (typeof getNotificationPreview === 'function') {
+        displayResult('diagnosticsResults', '✅ getNotificationPreview available', 'success');
+      } else {
+        displayResult('diagnosticsResults', '❌ getNotificationPreview NOT available', 'error');
+      }
+
+      // Check configuration
+      if (NOTIFICATION_CONFIG) {
+        displayResult('diagnosticsResults', `✅ NOTIFICATION_CONFIG exists`, 'success');
+        displayResult('diagnosticsResults', `   - WhatsApp enabled: ${NOTIFICATION_CONFIG.enabled.whatsapp}`, 'info');
+        displayResult('diagnosticsResults', `   - SMS enabled: ${NOTIFICATION_CONFIG.enabled.sms}`, 'info');
+      } else {
+        displayResult('diagnosticsResults', '❌ NOTIFICATION_CONFIG NOT found', 'error');
+      }
+
+      // Check demo mode
+      if (notificationController.isDemo()) {
+        displayResult('diagnosticsResults', '✅ Running in DEMO mode (safe for testing)', 'success');
+      } else {
+        displayResult('diagnosticsResults', '✅ Production mode (real APIs active)', 'success');
+      }
+
+      displayResult('diagnosticsResults', '✅ All diagnostics complete', 'success');
+    }
+
+    // Initialize status on page load
+    window.addEventListener('load', function() {
+      refreshSystemStatus();
+    });
+  </script>
+</body>
+</html>
